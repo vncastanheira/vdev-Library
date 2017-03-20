@@ -2,7 +2,9 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class EventManager : MonoBehaviour
+namespace vnc.Tools
+{
+    public class EventManager : MonoBehaviour
 {
 	private Dictionary<string, UnityEvent> eventDictionary;
 
@@ -71,4 +73,5 @@ public class EventManager : MonoBehaviour
 			thisEvent.Invoke();
 		}
 	}
+}
 }
