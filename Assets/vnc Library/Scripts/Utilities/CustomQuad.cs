@@ -3,28 +3,25 @@ using UnityEngine;
 
 namespace vnc.Utilities
 {
-    public class CustomQuad : MonoBehaviour
+    public static class CustomQuad
     {
-        public Rect rect;
-        public Material customMaterial;
-
-        public void Create(Vector2 rectPos, Vector2 rectSize)
+        public static GameObject Create(Rect rect, Material customMaterial = null)
         {
             GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Mesh mesh = (Mesh)Instantiate(quad.GetComponent<MeshFilter>().sharedMesh);
+            Mesh mesh = (Mesh) Object.Instantiate(quad.GetComponent<MeshFilter>().sharedMesh);
 
             var vertices = new Vector3[]
             {
-                rectPos,
-                rectPos + rectSize,
-                new Vector2(rectPos.x + rectSize.x, rectPos.y),
-                new Vector2(rectPos.x, rectPos.y + rectSize.y)
+                rect.position,
+                rect.position + rect.size,
+                new Vector2(rect.position.x + rect.size.x, rect.position.y),
+                new Vector2(rect.position.x, rect.position.y + rect.size.y)
             };
             mesh.SetVertices(vertices.ToList());
             quad.GetComponent<MeshFilter>().mesh = mesh;
 
             // Fix collider
-            DestroyImmediate(quad.GetComponent<MeshCollider>());
+            Object.DestroyImmediate(quad.GetComponent<MeshCollider>());
             quad.AddComponent<MeshCollider>();
 
             if (customMaterial != null)
@@ -32,6 +29,8 @@ namespace vnc.Utilities
                 var renderer = quad.GetComponent<MeshRenderer>();
                 renderer.material = customMaterial;
             }
+
+            return quad;
         }
     }
 }

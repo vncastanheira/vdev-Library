@@ -10,12 +10,12 @@ namespace vnc.Editor
         string[] scenePaths = new string[0];
         int index = 0;
 
-        [MenuItem("Window/Scene Editor Manager")]
+        [MenuItem("Window/vnc Library/Editor Scene Manager")]
 	    public static void Init()
         {
             var window = GetWindow<SceneEditorManager>();
-            window.titleContent = new GUIContent("Scene Select");
-            window.ShowUtility();
+            window.titleContent = new GUIContent("vnc Scene", VNCStyles.Icon);
+            window.Show();
         }
 
         private void OnGUI()
