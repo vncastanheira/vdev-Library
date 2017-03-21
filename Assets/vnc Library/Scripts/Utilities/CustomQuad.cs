@@ -18,6 +18,8 @@ namespace vnc.Utilities
                 new Vector2(rect.position.x, rect.position.y + rect.size.y)
             };
             mesh.SetVertices(vertices.ToList());
+            mesh.RecalculateBounds();
+            mesh.RecalculateNormals();
             quad.GetComponent<MeshFilter>().mesh = mesh;
 
             // Fix collider
