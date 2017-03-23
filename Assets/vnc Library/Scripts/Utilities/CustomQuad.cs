@@ -29,9 +29,9 @@ namespace vnc.Utilities
             mesh.RecalculateBounds();
             quad.GetComponent<MeshFilter>().mesh = mesh;
 
-            // Fix collider
-            Object.DestroyImmediate(quad.GetComponent<MeshCollider>());
-            quad.AddComponent<MeshCollider>();
+            // Remove collider
+            // TODO: add collider that actually works
+            Object.DestroyImmediate(quad.GetComponent<Collider>());
 
             if (customMaterial != null)
             {
