@@ -34,3 +34,7 @@ sysinfo.txt
 *.unitypackage
 /vnc/obj/Debug
 /vnc/bin/Debug
+/vnc.Editor/obj/Release
+/vnc.Editor/bin/Release
+/vnc/bin/Release
+/vnc/obj/Release
