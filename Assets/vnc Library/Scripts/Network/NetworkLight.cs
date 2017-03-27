@@ -7,10 +7,16 @@ namespace vnc.Network
     {
         [SerializeField] Light flashLight;
         [SerializeField, SyncVar] bool lightOn;
+        [Range(0.0f, 8.0f)] public float MaxIntensity;
         public string ButtonCommand;
 
-        [Range(0.0f, 8.0f)]
-        public float MaxIntensity;
+        public bool isLightOn
+        {
+            get
+            {
+                return lightOn;
+            }
+        }
 
         public virtual void UpdateLight()
         {
