@@ -19,7 +19,7 @@ namespace vnc.Utilities
             pos.x += ((size.x) / 2) * scaleDirection.x;
             pos.y += ((size.y) / 2) * scaleDirection.y;
             pos.z += ((size.z) / 2) * scaleDirection.z;
-
+            
             transform.localPosition = pos;
         }
     }
