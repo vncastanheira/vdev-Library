@@ -5,12 +5,14 @@ using UnityEngine.Events;
 
 public class CheatManager : MonoBehaviour
 {
+    public bool DeveloperConsole;
     public List<Cheat> Cheats;
 
     [Header("Customization")]
     public GUISkin Skin;
 
     #region Settings
+
     bool consoleWindowActive;
     const int LOG_MAX_SIZE = 10;
     List<string> commandLog;
@@ -57,12 +59,6 @@ public class CheatManager : MonoBehaviour
 #endif
     }
 
-    void Start()
-    {
-        
-        
-    }
-
     #endregion
     /// <summary>
     /// Command to be executed
@@ -73,12 +69,12 @@ public class CheatManager : MonoBehaviour
         UnityEvent invoker;
         if (Cheats.TryGetValue(command, out invoker))
         {
-            LogCommand(commandInput);
+            LogCommand(string.Format("'{0}' activated.", command));
             invoker.Invoke();
         }
         else
         {
-            LogCommand(string.Format("'{0}' not found", command));
+            LogCommand(string.Format("'{0}' not found.", command));
         }
     }
 
@@ -101,7 +97,7 @@ public class CheatManager : MonoBehaviour
     {
         // CAPTURE KEY
         Event key = Event.current;
-        if (key.type == EventType.keyDown)
+        if (key.type == EventType.keyDown && DeveloperConsole)
         {
             if (key.keyCode == KeyCode.Return && !string.IsNullOrEmpty(commandInput))
             {
@@ -109,6 +105,7 @@ public class CheatManager : MonoBehaviour
             }
             else if (key.keyCode == KeyCode.Quote || key.keyCode == KeyCode.BackQuote)
             {
+                commandInput = string.Empty;
                 consoleWindowActive = !consoleWindowActive;
             }
         }
