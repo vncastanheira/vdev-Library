@@ -17,7 +17,7 @@ namespace vnc.Tools.Localization
         [Header("Registered Languages"), SerializeField]
         public List<Language> languages = new List<Language>();
         /// <summary>List de language options</summary>
-        [SerializeField, HideInInspector]
+        [HideInInspector]
         public List<string> Options
         {
             get
