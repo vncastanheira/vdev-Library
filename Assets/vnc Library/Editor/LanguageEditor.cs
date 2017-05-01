@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using vnc.Tools.Localization;
 
@@ -11,12 +9,15 @@ namespace vnc.Editor
     {
         UnityEditorInternal.ReorderableList list;
         SerializedProperty registries;
+        SerializedProperty langName;
 
         private void OnEnable()
         {
             registries = serializedObject.FindProperty("Registries");
+            langName = serializedObject.FindProperty("Name");
 
             list = new UnityEditorInternal.ReorderableList(serializedObject, registries, true, true, true, true);
+            // draw the header
             list.drawHeaderCallback = (Rect rect) => {
                 EditorGUI.LabelField(rect, "Language Registries");
             };
@@ -24,6 +25,10 @@ namespace vnc.Editor
 
         public override void OnInspectorGUI()
         {
+            langName.stringValue = EditorGUILayout.TextField("Language Name", langName.stringValue);
+            EditorGUILayout.Space();
+
+            // callback draw each element
             list.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
             {
                 var element = list.serializedProperty.GetArrayElementAtIndex(index);
@@ -37,10 +42,8 @@ namespace vnc.Editor
                 EditorGUI.PropertyField(
                     new Rect(rect.x + 65, rect.y, rect.width - 60 - 30, EditorGUIUtility.singleLineHeight),
                     textProp, GUIContent.none);
-
-                //keyProp.stringValue = EditorGUILayout.TextField("Key", keyProp.stringValue);
-                //textProp.objectReferenceValue = EditorGUILayout.ObjectField("Text", textProp.objectReferenceValue, typeof(TextAsset), allowSceneObjects: true);
             };
+            // draw the list
             list.DoLayoutList();
             serializedObject.ApplyModifiedProperties();
         }
