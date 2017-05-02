@@ -16,9 +16,12 @@ namespace vnc.Tools.Localization
         /// <summary>Languages registered</summary>
         [Header("Registered Languages"), SerializeField]
         public List<Language> languages = new List<Language>();
+        [SerializeField, HideInInspector] int OptionIndex = 0;
+        #endregion
+
+        #region Public Properties
         /// <summary>List de language options</summary>
-        [HideInInspector]
-        public List<string> Options
+        [HideInInspector] public List<string> DisplayOptions
         {
             get
             {
@@ -31,25 +34,45 @@ namespace vnc.Tools.Localization
                 }).ToList();
             }
         }
-        #endregion
-
-        #region Public Properties
-        /// <summary>Language selected in game menu</summary>
-        public string SelectedLanguage
+        /// <summary> Language selected </summary>
+        public Language SelectedOption
         {
             get
             {
-                return selectedLanguage;
-            }
+                if (languages.Count == 0)
+                    return null;
 
-            private set
-            {
-                selectedLanguage = value;
+                return languages[OptionIndex];
             }
         }
+
+        /// <summary>
+        /// Find the text to the corresponding key
+        /// </summary>
+        /// <param name="key">Key code</param>
+        /// <returns>The localized text</returns>
+        public string LocalizeText(string key)
+        {
+            var registry = SelectedOption.Registries
+                .FirstOrDefault(r => string.Equals(key, r.Key, StringComparison.CurrentCultureIgnoreCase));
+            if(registry != null)
+            {
+                if (registry.Text == null)
+                {
+                    Debug.LogError("Localization: key '" + key + "' does not contain a text file.");
+                    return string.Empty;
+                }
+
+                return registry.Text.text;
+            }
+            Debug.LogWarning("Localization: key '" + "' not found.");
+            return string.Empty;
+        }
+
         #endregion
 
         #region Private
+        [SerializeField, HideInInspector]
         string selectedLanguage;
         #endregion
 

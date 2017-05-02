@@ -11,13 +11,23 @@ namespace vnc.Editor
     public class LocalizationEditor : UnityEditor.Editor
     {
         string[] options;
-        int optIndex = 0;
-        
+        SerializedProperty optIndex;
+
+        private void OnEnable()
+        {
+            optIndex = serializedObject.FindProperty("OptionIndex");
+        }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            options = ((LocalizationManager)target).Options.ToArray();
-            optIndex = EditorGUILayout.Popup("Default", optIndex, options);
+            options = ((LocalizationManager)target).DisplayOptions.ToArray();
+            if (options.Length > 0)
+            {
+                optIndex.intValue = EditorGUILayout.Popup("Default", optIndex.intValue, options);
+                EditorGUILayout.HelpBox(@"The Default language will be the starting language if no other is selected.", MessageType.Info);
+            }
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }
