@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test/Language.unity
+- path: Assets/Test/Localization/Language.unity
   isLoaded: 1
   isActive: 1

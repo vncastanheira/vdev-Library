@@ -1,5 +1,5 @@
 ﻿// Scrolling texture with background texture blending
-Shader "Vinicius/ScrollingGridShader" {
+Shader "vnc/ScrollingGridShader" {
 	Properties {
 		_MainTint ("Diffuse Tint", Color) = (1,1,1,1)
 		_MainTex ("Base (RGB)", 2D) = "white" {}
