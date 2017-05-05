@@ -1,4 +1,4 @@
-﻿Shader "Custom/Pixelate"
+﻿Shader "vnc/16bit"
 {
 	Properties
 	{
@@ -42,12 +42,15 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-				fixed4 right = tex2D(_MainTex, i.uv + float2(1,0));
-				fixed4 left = tex2D(_MainTex, i.uv + float2(-1,0));
-				fixed4 up = tex2D(_MainTex, i.uv + float2(0, -1));
-				fixed4 down = tex2D(_MainTex, i.uv + float2(0,1));
+				uint r = (col.r * 255)/100;
+				uint g = (col.g * 255)/100;
+				uint b = (col.b * 255)/100;
 
-				return down;
+				col.r *= r;
+				col.g *= g;
+				col.b *= b;
+
+				return col;
 			}
 			ENDCG
 		}

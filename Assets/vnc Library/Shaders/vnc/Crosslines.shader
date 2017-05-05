@@ -50,10 +50,9 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				if((fmod(floor(i.uv.x * _HorizFac), 2) == 0) && (fmod(floor(i.uv.y * _VertFac), 2) == 0))
 				{
-					col.r *= _Color.r; 
-					col.g *= _Color.g; 
-					col.b *= _Color.b; 
-					col.a *= _Color.a; 
+					col.r *= (_Color.r + (1-_Color.a)); 
+					col.g *= (_Color.g + (1-_Color.a)); 
+					col.b *= (_Color.b + (1-_Color.a)); 
 				}
 
 				return col;
