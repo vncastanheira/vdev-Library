@@ -1,4 +1,4 @@
-﻿namespace vnc.Utilities
+﻿namespace vnc.Utilities.Time
 {
     public class CooldownEvent : Timer
     {

@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace vnc.Utilities
+namespace vnc.Utilities.Time
 {
-
     public class TimedEvent : Timer
     {
         UnityEvent OnEventTrigger;

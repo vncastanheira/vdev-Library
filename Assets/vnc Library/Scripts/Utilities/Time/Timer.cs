@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-
-namespace vnc.Utilities
+﻿namespace vnc.Utilities.Time
 {
     /// <summary> Keeps track of timed events and automatically trigger them.</summary>
     public abstract class Timer
@@ -33,10 +30,10 @@ namespace vnc.Utilities
         {
             if (!isStarted)
             {
-                Debug.LogError("Timer not started. Did you called 'Start()' method?");
-                Debug.Break();
+                UnityEngine.Debug.LogError("Timer not started. Did you called 'Start()' method?");
+                UnityEngine.Debug.Break();
             }
-            Step(Time.deltaTime);
+            Step(UnityEngine.Time.deltaTime);
         }
 
         /// <summary>
@@ -46,10 +43,10 @@ namespace vnc.Utilities
         {
             if (!isStarted)
             {
-                Debug.LogError("Timer not started. Did you called 'Start()' method?");
-                Debug.Break();
+                UnityEngine.Debug.LogError("Timer not started. Did you called 'Start()' method?");
+                UnityEngine.Debug.Break();
             }
-            Step(Time.fixedDeltaTime);
+            Step(UnityEngine.Time.fixedDeltaTime);
         }
         #endregion
 
