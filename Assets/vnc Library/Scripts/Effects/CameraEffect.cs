@@ -1,18 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
 namespace vnc.Effects
 {
-    [ExecuteInEditMode]
-    public class CameraEffect : MonoBehaviour
-    {
-	    public Material material;
+				[ExecuteInEditMode]
+				public class CameraEffect : MonoBehaviour
+				{
+								public Material material;
 
-	    void OnRenderImage(RenderTexture source, RenderTexture destination)
-	    {
-		    Graphics.Blit(source, destination, material);
-	    }
-
-    }
+								public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
+								{
+												Graphics.Blit(source, destination, material);
+								}
+				}
 }
-
