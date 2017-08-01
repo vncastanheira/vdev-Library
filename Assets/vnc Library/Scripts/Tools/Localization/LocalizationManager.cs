@@ -1,9 +1,8 @@
-﻿using System.Collections;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using vnc.Utilities;
-using System;
+using vnc.Core;
 
 namespace vnc.Tools.Localization
 {

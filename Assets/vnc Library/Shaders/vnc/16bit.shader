@@ -42,9 +42,9 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-				uint r = (col.r * 255)/100;
-				uint g = (col.g * 255)/100;
-				uint b = (col.b * 255)/100;
+				int r = (col.r * 255)/100;
+				int g = (col.g * 255)/100;
+				int b = (col.b * 255)/100;
 
 				col.r *= r;
 				col.g *= g;

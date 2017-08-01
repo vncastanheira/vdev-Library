@@ -1,4 +1,4 @@
-﻿namespace vnc.Utilities.Time
+namespace vnc.Utilities.Time
 {
     /// <summary> Keeps track of timed events and automatically trigger them.</summary>
     public abstract class Timer
@@ -14,11 +14,22 @@
             _maxTimer = _timer = time;
         }
 
-        #region Public
-        /// <summary>
-        /// Starts the timer and must be called before Tick() or FixedTick().
-        /// </summary>
-        public void Start()
+								#region Public
+								/// <summary>
+								/// Check if the time was already started
+								/// </summary>
+								public bool HasStarted
+								{
+												get
+												{
+																return isStarted;
+												}
+								}
+
+								/// <summary>
+								/// Starts the timer and must be called before Tick() or FixedTick().
+								/// </summary>
+								public void Start()
         {
             isStarted = true;
         }
