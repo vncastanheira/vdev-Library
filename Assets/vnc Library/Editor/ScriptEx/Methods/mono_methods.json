@@ -1,0 +1,259 @@
+{
+	"methods": [{
+			"Name": "Awake",
+			"Ranking": 5
+		},
+		{
+			"Name": "Update",
+			"Ranking": 5
+		},
+		{
+			"Name": "FixedUpdate",
+			"Ranking": 0
+		},
+		{
+			"Name": "LateUpdate",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnAnimatorIK",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnAnimatorMove",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnApplicationFocus",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnApplicationPause",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnApplicationQuit",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnAudioFilterRead",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnBecameInvisible",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnBecameVisible",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnCollisionEnter",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnCollisionEnter2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnCollisionExit",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnCollisionExit2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnCollisionStay",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnCollisionStay2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnConnectedToServer",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnControllerColliderHit",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnDestroy",
+			"Ranking": 1
+		},
+		{
+			"Name": "OnDisable",
+			"Ranking": 1
+		},
+		{
+			"Name": "OnDisconnectedFromServer",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnDrawGizmos",
+			"Ranking": 1
+		},
+		{
+			"Name": "OnDrawGizmosSelected",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnEnable",
+			"Ranking": 1
+		},
+		{
+			"Name": "OnFailedToConnect",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnFailedToConnectToMasterServer",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnGUI",
+			"Ranking": 1
+		},
+		{
+			"Name": "OnJointBreak",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnJointBreak2D",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMasterServerEvent",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseDown",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseDrag",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseEnter",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseExit",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseOver",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseUp",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnMouseUpAsButton",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnNetworkInstantiate",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnParticleCollision",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnParticleTrigger",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnParticleTrigger",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnPlayerConnected",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnPlayerDisconnected",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnPostRender",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnPreCull",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnPreRender",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnRenderImage",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnRenderObject",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnSerializeNetworkView",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnServerInitialized",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnTransformChildrenChanged",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnTransformParentChanged",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnTriggerEnter",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnTriggerEnter2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnTriggerExit",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnTriggerExit2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnTriggerStay",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnTriggerStay2D",
+			"Ranking": 3
+		},
+		{
+			"Name": "OnValidate",
+			"Ranking": 0
+		},
+		{
+			"Name": "OnWillRenderObject",
+			"Ranking": 0
+		},
+		{
+			"Name": "Reset",
+			"Ranking": 0
+		},
+		{
+			"Name": "Start",
+			"Ranking": 5
+		}
+	]
+}
