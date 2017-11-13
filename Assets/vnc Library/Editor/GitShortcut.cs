@@ -6,7 +6,7 @@ namespace vnc.Editor
 {
     public class GitShortcut : EditorWindow
     {
-	    [MenuItem("Window/vnc Library/Git Bash")]
+	    [MenuItem("Tools/vnc Library/Git Bash")]
 	    public static void ShowBash()
 	    {
 		    Process foo = new Process();

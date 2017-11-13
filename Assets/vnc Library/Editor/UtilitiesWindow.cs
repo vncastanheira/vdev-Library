@@ -22,7 +22,7 @@ namespace vnc.Editor
 
         #endregion
 
-        [MenuItem("Window/vnc Library/Utilities")]
+        [MenuItem("Tools/vnc Library/Utilities")]
         public static void Open()
         {
             var window = GetWindow<UtilitiesWindow>();

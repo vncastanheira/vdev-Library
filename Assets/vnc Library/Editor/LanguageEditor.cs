@@ -18,7 +18,8 @@ namespace vnc.Editor
 
             list = new UnityEditorInternal.ReorderableList(serializedObject, registries, true, true, true, true);
             // draw the header
-            list.drawHeaderCallback = (Rect rect) => {
+            list.drawHeaderCallback = (Rect rect) =>
+            {
                 EditorGUI.LabelField(rect, "Language Registries");
             };
         }

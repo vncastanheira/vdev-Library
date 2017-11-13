@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test/Localization/Language.unity
+- path: Assets/Test/Time/Zombie/time Demo.unity
   isLoaded: 1
   isActive: 1
