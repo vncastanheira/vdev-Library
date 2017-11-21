@@ -5,161 +5,176 @@ using UnityEngine.Events;
 
 namespace vnc.Tools
 {
-				public class CheatManager : MonoBehaviour
-				{
-								public bool DeveloperConsole;
-								public List<Cheat> Cheats;
+    public static class CheatManager
+    {
+        /// <summary> Function command </summary>
+        public delegate void xcommand();
 
-								[Header("Customization")]
-								public GUISkin Skin;
+        public static Dictionary<string, xcommand> Commands { get; private set; }
 
-								#region Settings
+        static GUISkin skin = null;
+        public static GUISkin Skin
+        {
+            get
+            {
+                if (skin == null)
+                    return GUI.skin;
 
-								private bool consoleWindowActive;
-								private const int LOG_MAX_SIZE = 10;
-								private List<string> commandLog;
-								private string commandInput;
-								private Vector2 scrollPosition = Vector2.zero;
+                return skin;
+            }
+            set
+            {
+                skin = value;
+            }
+        }
 
-								#endregion Settings
+        #region Settings
 
-								#region DEBUG
+        const int LOG_MAX_SIZE = 10;
+        static bool consoleWindowActive;
+        static List<string> commandLog;
+        static string commandInput;
+        static Vector2 scrollPosition = Vector2.zero;
 
-#if UNITY_EDITOR
+        const float COMMAND_INPUT_HEIGHT = 25;
+        const float COMMAND_LOG_HEIGHT = 25;
 
-								[Header("Debug Settings")]
-								public bool DebugActive; // Start with the console window active
+        static Rect ConsoleGroup
+        {
+            get
+            {
+                return new Rect(0, 0, Screen.width, Screen.height / 3);
+            }
+        }
 
-#endif
+        static Rect ConsoleLogView
+        {
+            get
+            {
+                return new Rect(5, 5, ConsoleGroup.width - 5, ConsoleGroup.height - COMMAND_INPUT_HEIGHT - 5);
+            }
+        }
 
-								#endregion DEBUG
+        #endregion Settings
 
-								#region Calculations & Constants
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Init()
+        {
+            commandInput = string.Empty;
+            consoleWindowActive = false;
+            commandLog = new List<string>();
+            Commands = new Dictionary<string, xcommand>();
 
-								public const float COMMAND_INPUT_HEIGHT = 25;
-								public const float COMMAND_LOG_HEIGHT = 25;
+            new GameObject().AddComponent<CheatManagerBehaviour>();
 
-								public Rect ConsoleGroup
-								{
-												get
-												{
-																return new Rect(0, 0, Screen.width, Screen.height / 3);
-												}
-								}
+            skin = Resources.FindObjectsOfTypeAll<GUISkin>().SingleOrDefault(s => s.name == "CheatsGUISkin");
+        }
 
-								public Rect ConsoleLogView
-								{
-												get
-												{
-																return new Rect(5, 5, ConsoleGroup.width - 5, ConsoleGroup.height - COMMAND_INPUT_HEIGHT - 5);
-												}
-								}
+        /// <summary>
+        /// Register a new command
+        /// </summary>
+        /// <param name="key">Key to be accessed</param>
+        /// <param name="command">Function to execute</param>
+        public static void RegisterCommand(string key, xcommand command)
+        {
+            Commands.Add(key, command);
+        }
 
-								#endregion Calculations & Constants
+        /// <summary>
+        /// Command to be executed
+        /// </summary>
+        /// <param name="command">Command parameter</param>
+        public static void Run(string key)
+        {
+            xcommand cmd;
+            if (Commands.TryGetValue(key, out cmd))
+            {
+                LogCommand(string.Format("'{0}' activated.", key));
+                cmd();
+            }
+            else
+            {
+                LogCommand(string.Format("'{0}' not found.", key));
+            }
+        }
 
-								#region Default Settings
+        /// <summary>
+        /// Create a entry log
+        /// </summary>
+        /// <param name="command">Command logged</param>
+        public static void LogCommand(string command)
+        {
+            commandLog.Add(command);
+            if (commandLog.Count > LOG_MAX_SIZE)
+                commandLog.RemoveAt(0);
+            else
+                scrollPosition = new Vector2(0, scrollPosition.y + COMMAND_LOG_HEIGHT);
 
-								private void Awake()
-								{
-												commandInput = string.Empty;
-												consoleWindowActive = false;
-												commandLog = new List<string>();
-												if (Cheats == null)
-																Cheats = new List<Cheat>();
-#if UNITY_EDITOR
-												consoleWindowActive = DebugActive;
-#endif
-								}
+            commandInput = string.Empty;
+        }
 
-								#endregion Default Settings
+        public static void OnGUI()
+        {
+            // CAPTURE KEY
+            Event key = Event.current;
+            if (key.type == EventType.keyDown)
+            {
+                if (key.keyCode == KeyCode.Return && !string.IsNullOrEmpty(commandInput))
+                {
+                    Run(commandInput);
+                }
+                else if (key.keyCode == KeyCode.Quote || key.keyCode == KeyCode.BackQuote)
+                {
+                    commandInput = string.Empty;
+                    consoleWindowActive = !consoleWindowActive;
+                }
+            }
 
-								/// <summary>
-								/// Command to be executed
-								/// </summary>
-								/// <param name="command">Command parameter</param>
-								private void ExecuteCommand(string command)
-								{
-												UnityEvent invoker;
-												if (Cheats.TryGetValue(command, out invoker))
-												{
-																LogCommand(string.Format("'{0}' activated.", command));
-																invoker.Invoke();
-												}
-												else
-												{
-																LogCommand(string.Format("'{0}' not found.", command));
-												}
-								}
+            // DRAW
+            if (consoleWindowActive)
+            {
+                GUI.BeginGroup(ConsoleGroup, Skin.scrollView);
+                scrollPosition = GUI.BeginScrollView(ConsoleLogView, scrollPosition, new Rect(0, 0, 100, COMMAND_INPUT_HEIGHT * commandLog.Count));
+                for (int i = commandLog.Count - 1; i >= 0; i--)
+                    GUI.Label(new Rect(0, i * 20, Screen.width, COMMAND_LOG_HEIGHT), commandLog[i], Skin.label);
 
-								/// <summary>
-								/// Create a entry log
-								/// </summary>
-								/// <param name="command">Command logged</param>
-								private void LogCommand(string command)
-								{
-												commandLog.Add(command);
-												if (commandLog.Count > LOG_MAX_SIZE)
-																commandLog.RemoveAt(0);
-												else
-																scrollPosition = new Vector2(0, scrollPosition.y + COMMAND_LOG_HEIGHT);
+                GUI.EndScrollView();
+                Rect textFieldBox = new Rect(0, ConsoleLogView.height, Screen.width, COMMAND_INPUT_HEIGHT);
+                commandInput = GUI.TextField(textFieldBox, commandInput, 25, Skin.textField);
+                GUI.EndGroup();
+            }
+        }
+    }
 
-												commandInput = string.Empty;
-								}
+    class CheatManagerBehaviour : MonoBehaviour
+    {
+        private void OnGUI()
+        {
+            CheatManager.OnGUI();
+        }
+    }
 
-								private void OnGUI()
-								{
-												// CAPTURE KEY
-												Event key = Event.current;
-												if (key.type == EventType.keyDown && DeveloperConsole)
-												{
-																if (key.keyCode == KeyCode.Return && !string.IsNullOrEmpty(commandInput))
-																{
-																				ExecuteCommand(commandInput);
-																}
-																else if (key.keyCode == KeyCode.Quote || key.keyCode == KeyCode.BackQuote)
-																{
-																				commandInput = string.Empty;
-																				consoleWindowActive = !consoleWindowActive;
-																}
-												}
+    [System.Serializable]
+    public sealed class Cheat
+    {
+        [SerializeField] public string Key;
+        [SerializeField] public UnityEvent Event;
+    }
 
-												// DRAW
-												if (consoleWindowActive)
-												{
-																GUI.BeginGroup(ConsoleGroup, Skin.scrollView);
-																scrollPosition = GUI.BeginScrollView(ConsoleLogView, scrollPosition, new Rect(0, 0, 100, COMMAND_INPUT_HEIGHT * commandLog.Count));
-																for (int i = commandLog.Count - 1; i >= 0; i--)
-																				GUI.Label(new Rect(0, i * 20, Screen.width, COMMAND_LOG_HEIGHT), commandLog[i], Skin.label);
+    [System.Serializable]
+    public static class CheatListExtension
+    {
+        public static bool TryGetValue(this List<Cheat> list, string key, out UnityEvent value)
+        {
+            var cheat = list.FirstOrDefault(c => string.Equals(key, c.Key, System.StringComparison.CurrentCultureIgnoreCase));
+            if (cheat != null)
+            {
+                value = cheat.Event;
+                return true;
+            }
 
-																GUI.EndScrollView();
-																Rect textFieldBox = new Rect(0, ConsoleLogView.height, Screen.width, COMMAND_INPUT_HEIGHT);
-																commandInput = GUI.TextField(textFieldBox, commandInput, 25, Skin.textField);
-																GUI.EndGroup();
-												}
-								}
-				}
-
-				[System.Serializable]
-				public sealed class Cheat
-				{
-								[SerializeField] public string Key;
-								[SerializeField] public UnityEvent Event;
-				}
-
-				[System.Serializable]
-				public static class CheatListExtension
-				{
-								public static bool TryGetValue(this List<Cheat> list, string key, out UnityEvent value)
-								{
-												var cheat = list.FirstOrDefault(c => string.Equals(key, c.Key, System.StringComparison.CurrentCultureIgnoreCase));
-												if (cheat != null)
-												{
-																value = cheat.Event;
-																return true;
-												}
-
-												value = null;
-												return false;
-								}
-				}
+            value = null;
+            return false;
+        }
+    }
 }
