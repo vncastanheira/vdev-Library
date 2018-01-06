@@ -10,7 +10,12 @@ namespace vnc.Tools
         /// <summary> Function command </summary>
         public delegate void xcommand();
 
-        public static Dictionary<string, xcommand> Commands { get; private set; }
+        static Dictionary<string, xcommand> _cmds = new Dictionary<string, xcommand>();
+        public static Dictionary<string, xcommand> Commands
+        {
+            get { return _cmds; }
+            private set { _cmds = value; }
+        }
 
         static GUISkin skin = null;
         public static GUISkin Skin
@@ -57,18 +62,22 @@ namespace vnc.Tools
 
         #endregion Settings
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void Init()
+        #region Init
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void InitBefore()
         {
             commandInput = string.Empty;
             consoleWindowActive = false;
             commandLog = new List<string>();
-            Commands = new Dictionary<string, xcommand>();
+        }
 
-            new GameObject().AddComponent<CheatManagerBehaviour>();
-
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void InitAfter()
+        {
+            new GameObject("_CHEAT MANAGER_").AddComponent<CheatManagerBehaviour>();
             skin = Resources.FindObjectsOfTypeAll<GUISkin>().SingleOrDefault(s => s.name == "CheatsGUISkin");
         }
+        #endregion Init
 
         /// <summary>
         /// Register a new command

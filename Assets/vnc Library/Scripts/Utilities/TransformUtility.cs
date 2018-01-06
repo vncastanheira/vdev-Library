@@ -22,6 +22,17 @@ namespace vnc.Utilities
             
             transform.localPosition = pos;
         }
+
+        /// <summary>
+        /// Use a Layer Mask to compare with the object's layer
+        /// </summary>
+        /// <param name="obj">the object that contains the layer</param>
+        /// <param name="layerMask"></param>
+        /// <returns>If the object contain the layer specified the layer mask</returns>
+        public static bool CompareLayer(this GameObject obj, LayerMask layerMask)
+        {
+            return ((1 << obj.layer) & layerMask) != 0;
+        }
     }
 
 }
