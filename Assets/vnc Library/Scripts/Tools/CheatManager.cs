@@ -126,7 +126,7 @@ namespace vnc.Tools
         {
             // CAPTURE KEY
             Event key = Event.current;
-            if (key.type == EventType.keyDown)
+            if (key.type == EventType.KeyDown)
             {
                 if (key.keyCode == KeyCode.Return && !string.IsNullOrEmpty(commandInput))
                 {
