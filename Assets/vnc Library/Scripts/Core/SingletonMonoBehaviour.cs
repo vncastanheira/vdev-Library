@@ -6,10 +6,23 @@ namespace vnc.Core
 {
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
 
-        public static T Singleton;
+        private static T singleton = null;
 
-        /// <summary> Define singleton creation</summary>
-        public abstract void CreateSingleton();
+        public static T Singleton
+        {
+            get
+            {
+                if (singleton == null)
+                    singleton = FindObjectOfType<T>();
+
+                if (singleton == null)
+                    throw new System.NullReferenceException();
+
+                return singleton;
+            }
+
+            protected set { singleton = value; }
+        }
     }
 }
 

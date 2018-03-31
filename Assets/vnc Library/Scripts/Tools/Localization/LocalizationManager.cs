@@ -78,13 +78,9 @@ namespace vnc.Tools.Localization
         #region Singleton
         private void Awake()
         {
-            CreateSingleton();
-        }
-
-        public override void CreateSingleton()
-        {
             Singleton = this;
         }
+        
         #endregion
     }
 }
