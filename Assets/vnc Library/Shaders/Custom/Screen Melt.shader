@@ -1,4 +1,4 @@
-﻿Shader "Custom/Screen Melt"
+﻿Shader "vnc/Screen Melt"
 {
 	Properties
 	{
@@ -58,7 +58,8 @@
 
 				fixed4 noise = tex2D(_NoiseTex, i.uv);
 
-				float2 meltUV = i.uv + float2(0.0, (noise.r * _Melting) + _Curtain);
+				float value = (noise.r + noise.g + noise.b) / 3.0;
+				float2 meltUV = i.uv + float2(0.0, (value * _Melting) + _Curtain);
 				fixed4 front = tex2D(_FrontTex, meltUV);
 
 				if (meltUV.y < 1)
