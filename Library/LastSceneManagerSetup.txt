@@ -1,1 +1,4 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/Test/Heat.unity
+  isLoaded: 1
+  isActive: 1

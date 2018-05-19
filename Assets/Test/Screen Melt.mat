@@ -65,14 +65,14 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Clearing: 0
-    - _Curtain: 0.005
+    - _Curtain: 0.3407103
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Melting: 0.01
+    - _Melting: 0.6814206
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1

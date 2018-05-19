@@ -145,8 +145,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontTexture: {fileID: 2800000, guid: 1a97a6079f742884f9be224a93958df0, type: 3}
   melt: {fileID: 2100000, guid: 1d1890704a25e3c4cbb1476779605dbe, type: 2}
-  m_speed: 0.5
+  m_speed: 0.8
   m_noiseScale: 0.7
+  OnMeltingEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!81 &706514484
 AudioListener:
   m_ObjectHideFlags: 0

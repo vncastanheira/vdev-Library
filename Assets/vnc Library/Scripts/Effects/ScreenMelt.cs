@@ -16,14 +16,14 @@ namespace vnc.Effects
         float curtain;
         Texture2D noiseTex;
 
-        private void Start()
+        public virtual void Start()
         {
             melting = 0;
             curtain = 0;
             noiseTex = Noise(scale: m_noiseScale);
         }
 
-        private void Update()
+        public virtual void Update()
         {
             melt.SetFloat("_Melting", melting);
             melt.SetFloat("_Curtain", curtain);
@@ -46,7 +46,7 @@ namespace vnc.Effects
             }
         }
 
-        private void OnRenderImage(RenderTexture source, RenderTexture destination)
+        public virtual void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             if (melt)
                 Graphics.Blit(source, destination, melt);
