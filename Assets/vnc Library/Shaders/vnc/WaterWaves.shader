@@ -4,9 +4,10 @@
 	{
 		_MainTex("Texture", 2D) = "white" {}
 		_HeightTex("Height Map", 2D) = "white" {}
-		_WaveDistortion("Wave Distortion", Float) = 1.0
+		_WaveSpeed("Wave Speed", Float) = 1.0
+		_WaveIntensity("Wave Intensity", Float) = 1.0
 		_Color("Color", Color) = (1,1,1,1)
-		_Intensity("Intensity", Range(0.0, 360.0)) = 20.0
+		_WirlIntensity("Wirl Intensity", Range(0.0, 360.0)) = 20.0
 		_WirlSpeed("Wirl Speed", Range(0, 3)) = 0.0
 	}
 		SubShader
@@ -43,11 +44,14 @@
 			};
 
 			sampler2D _MainTex;
-			sampler2D _HeightTex;
-			float _WaveDistortion;
 			float4 _MainTex_ST;
+
+			sampler2D _HeightTex;
+			float _WaveSpeed;
+			float _WaveIntensity;
+
 			float4 _Color;
-			float _Intensity;
+			float _WirlIntensity;
 			int _WirlSpeed;
 
 			v2f vert(appdata v)
@@ -56,12 +60,12 @@
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 				float2 heightUv = o.uv;
-				heightUv.y += _Time * _WaveDistortion;
+				heightUv.y += _Time * _WaveSpeed;
 				float4 h = tex2Dlod(_HeightTex, float4(heightUv, 0.0, 0.0));
 				float bump = (h.r + h.g + h.b) / 3;
 
 				float4 vPos = v.vertex;
-				vPos.y += bump;
+				vPos.y += bump * _WaveIntensity;
 				o.vertex = UnityObjectToClipPos(vPos);
 
 				return o;
@@ -70,7 +74,7 @@
 			fixed4 frag(v2f i) : SV_Target
 			{
 				int speed = round(_WirlSpeed);
-				float sine = sin((i.uv.y + abs(_Time[speed]))* _Intensity);
+				float sine = sin((i.uv.y + abs(_Time[speed]))* _WirlIntensity);
 				i.uv.x += sine * 0.01;
 
 				// sample the texture

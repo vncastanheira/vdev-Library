@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _HeightTex:
-        m_Texture: {fileID: 2800000, guid: f84ce52af9b0e0a458564aea539aed83, type: 3}
+        m_Texture: {fileID: 2800000, guid: cfeefcbcca0f0d443938800ee376f2b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -29,7 +29,10 @@ Material:
     m_Floats:
     - _Intensity: 52
     - _Speed: 0.92
+    - _WaveDistortion: 0.28
+    - _WaveIntensity: 0.35
     - _WaveSpeed: 0.5
+    - _WirlIntensity: 52
     - _WirlSpeed: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
