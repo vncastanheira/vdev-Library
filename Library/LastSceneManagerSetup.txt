@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test/Heat.unity
+- path: Assets/Test/Waves.unity
   isLoaded: 1
   isActive: 1
