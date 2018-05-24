@@ -79,6 +79,7 @@
 
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
+				col.rgb *= _Color.rgb;
 				col.a = _Color.a;
 
 				return col;
