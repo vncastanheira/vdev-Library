@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
+using vnc.Attributes;
 
 //Original version of the ConditionalHideAttribute created by Brecht Lecluyse (www.brechtos.com)
 //Modified by: Vinícius Castanheira
@@ -108,3 +110,4 @@ namespace vnc.Utilities
         }
     }
 }
+#endif

@@ -4,8 +4,14 @@ namespace vnc.Utilities
 {
     public static class EnumExtensions
     {
-        public static bool HasFlag(this Enum source, Enum flag)
+        public static bool HasFlag<T>(this T source, T flag)
         {
+            if (!source.GetType().IsEnum)
+                throw new ArgumentException("source is not an enum type.");
+
+            if (!flag.GetType().IsEnum)
+                throw new ArgumentException("flag is not an enum type.");
+
             // check if from the same type.
             if (source.GetType() != flag.GetType())
             {
@@ -15,7 +21,7 @@ namespace vnc.Utilities
             ulong num = Convert.ToUInt64(source);
             ulong num2 = Convert.ToUInt64(flag);
 
-            return (num2 & num) == num;
+            return (num2 & num) != 0;
         }
     }
 }

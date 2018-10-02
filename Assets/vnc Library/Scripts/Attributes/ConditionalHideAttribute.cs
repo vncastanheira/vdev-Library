@@ -5,7 +5,7 @@ using System.Collections;
 //Original version of the ConditionalHideAttribute created by Brecht Lecluyse (www.brechtos.com)
 //Modified by: Vinícius Castanheira
 
-namespace vnc.Utilities
+namespace vnc.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property |
         AttributeTargets.Class | AttributeTargets.Struct, Inherited = true)]
