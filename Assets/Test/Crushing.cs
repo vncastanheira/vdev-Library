@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEditor;
 using vnc.Utilities;
 
-public class Crushing : MonoBehaviour
+namespace vnc.Test
+{
+    public class Crushing : MonoBehaviour
 {
     public LayerMask layerMask;
     BoxCollider box;
@@ -54,4 +56,5 @@ public class Crushing : MonoBehaviour
         rect.y += 50;
         GUI.Label(rect, "Dist: " + dist);
     }
+}
 }
