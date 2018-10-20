@@ -29,3 +29,4 @@ ExportedObj/
 /vnc/bin/Release
 /vnc/obj/Release
 Library/ScriptAssemblies/BuiltinAssemblies.stamp
+/.vs/vnc-Library/v15/Server/sqlite3

@@ -29,10 +29,30 @@ namespace vnc.Utilities
 {
     public static class PhysicsExtensions
     {
+        public static bool GeneralCast(BoxCollider collider, Vector3 direction,
+            out RaycastHit hitInfo, float maxDistance = Mathf.Infinity,
+            int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            return BoxCast(collider as BoxCollider, direction, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+        }
+
+        public static bool GeneralCast(SphereCollider collider, Vector3 direction,
+            out RaycastHit hitInfo, float maxDistance = Mathf.Infinity,
+            int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            return SphereCast(collider as SphereCollider, direction, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+        }
+
+        public static bool GeneralCast(CapsuleCollider collider, Vector3 direction,
+            out RaycastHit hitInfo, float maxDistance = Mathf.Infinity,
+            int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            return CapsuleCast(collider as CapsuleCollider, direction, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+        }
+
         //
         // Box
         //
-
         public static bool BoxCast(BoxCollider box, Vector3 direction, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             Vector3 center, halfExtents;
@@ -160,11 +180,26 @@ namespace vnc.Utilities
         // Capsule
         //
 
+
         public static bool CapsuleCast(CapsuleCollider capsule, Vector3 direction, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
         {
             Vector3 point0, point1;
             float radius;
             capsule.ToWorldSpaceCapsule(out point0, out point1, out radius);
+            return Physics.CapsuleCast(point0, point1, radius, direction, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+        }
+
+        public static bool CapsuleCastOffset(CapsuleCollider capsule, Vector3 direction, out RaycastHit hitInfo,
+            Vector3 offset,
+            float maxDistance = Mathf.Infinity,
+            int layerMask = Physics.DefaultRaycastLayers,
+            QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            Vector3 point0, point1;
+            float radius;
+            capsule.ToWorldSpaceCapsule(out point0, out point1, out radius);
+            point0 += offset;
+            point1 += offset;
             return Physics.CapsuleCast(point0, point1, radius, direction, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
         }
 
@@ -208,6 +243,16 @@ namespace vnc.Utilities
             return Physics.OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask, queryTriggerInteraction);
         }
 
+        public static int OverlapCapsuleNonAlloc(CapsuleCollider capsule, Vector3 offset, Collider[] results, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal)
+        {
+            Vector3 point0, point1;
+            float radius;
+            capsule.ToWorldSpaceCapsule(out point0, out point1, out radius);
+            point0 += offset;
+            point1 += offset;
+            return Physics.OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask, queryTriggerInteraction);
+        }
+
         public static void ToWorldSpaceCapsule(this CapsuleCollider capsule, out Vector3 point0, out Vector3 point1, out float radius)
         {
             var center = capsule.transform.TransformPoint(capsule.center);
@@ -242,6 +287,13 @@ namespace vnc.Utilities
 
             point0 = center + dir * (height * 0.5f - radius);
             point1 = center - dir * (height * 0.5f - radius);
+        }
+
+        public static bool ComputePenetration(Collider colliderA, Collider colliderB, out Vector3 direction, out float distance)
+        {
+            return Physics.ComputePenetration(colliderA, colliderA.transform.position, colliderA.transform.rotation,
+                colliderB, colliderB.transform.position, colliderB.transform.rotation,
+                out direction, out distance);
         }
 
         //  
